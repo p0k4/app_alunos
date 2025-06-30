@@ -45,3 +45,67 @@ tr:nth-child(even) {
 .export-buttons button:hover {
   background-color: #084256;
 }
+
+.tabela-alunos {
+  width: 95%;
+  margin: 30px auto;                 /* margem em toda a volta */
+  border-collapse: separate;         /* permite border-radius */
+  border-spacing: 0;                  /* evita espaços estranhos */
+  background-color: #fff;
+  border-radius: 12px;                /* cantos arredondados bonitos */
+  overflow: hidden;                   /* faz o radius cortar conteúdo */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.tabela-alunos th {
+  background-color: #0b3d57;
+  color: white;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.tabela-alunos td {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  font-size: 14px;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.tabela-alunos tr:nth-child(even) {
+  background-color: #f2f8fc;
+}
+
+.top-bar {
+  width: 95%;
+  max-width: 1400px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.voltar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.export-buttons button {
+  background-color: #0b3d57;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}

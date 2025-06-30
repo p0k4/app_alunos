@@ -1,15 +1,33 @@
-.app-container {
-  max-width: 1400px;
-  width: 95%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #e6f0f5;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
+body {
+  margin: 0;
+   background: linear-gradient(to bottom, #e0e0e0, #c0c0c0, #a0a0a0);
+
   font-family: Arial, sans-serif;
 }
+
 
 h1 {
   text-align: center;
   color: #0b3d57;
+}
+
+.registo-topo {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.voltar-btn {
+  padding: 8px 16px;
+  background-color: #28a745;       /* Verde bonito */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.voltar-btn:hover {
+  background-color: #218838;
 }

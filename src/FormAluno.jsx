@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './FormAluno.css';
 
 function FormAluno({ onAdicionar }) {
@@ -110,6 +111,9 @@ function FormAluno({ onAdicionar }) {
       />
 
       <button type="submit">Adicionar Aluno</button>
+      <div className="link-registos">
+        <Link to="/registos">📑 Ver Registos</Link>
+      </div>
     </form>
   );
 }

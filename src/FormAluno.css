@@ -1,51 +1,71 @@
 .form-aluno {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 5px #ccc;
 }
 
 .form-aluno h2 {
-  margin-bottom: 15px;
+  text-align: center;
   color: #0b3d57;
+  margin-bottom: 20px;
+  font-size: 1.5em;
 }
 
 .form-aluno label {
-  margin-top: 10px;
-  font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 600;
   color: #0b3d57;
 }
 
 .form-aluno input,
+.form-aluno select,
 .form-aluno textarea {
-  padding: 8px;
-  margin-top: 4px;
+  width: 100%;
+  padding: 10px 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-aluno button {
-  margin-top: 15px;
-  padding: 10px;
+  margin-top: 20px;
+  padding: 12px;
   background-color: #0b3d57;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.2s;
 }
 
 .form-aluno button:hover {
-  background-color: #095072;
+  background-color: #084256;
 }
 
-.form-aluno select {
-  padding: 8px;
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
+.form-aluno .link-registos {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-aluno .link-registos a {
+  display: inline-block;
+  padding: 12px;
+  background-color: #0b3d57;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.form-aluno .link-registos a:hover {
+  background-color: #084256;
 }

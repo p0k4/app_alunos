@@ -54,9 +54,11 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
 
   return (
     <div>
+      <div className="top-bar">
       <div className="export-buttons">
         <button onClick={() => exportPDF(alunos)}>📄 Exportar PDF</button>
         <button onClick={() => exportCSV(alunos)}>📑 Exportar CSV</button>
+        </div>
       </div>
 
       <table className="tabela-alunos">

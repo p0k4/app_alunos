@@ -1,7 +1,6 @@
 .tabela-alunos {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -9,41 +8,23 @@
   margin-top: 20px;
 }
 
+th, td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+}
+
 th {
   background-color: #0b3d57;
   color: white;
-  padding: 12px 10px;
-  text-align: left;
   font-size: 16px;
-}
-
-td {
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  font-size: 14px;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow-wrap: break-word;
 }
 
 tr:nth-child(even) {
   background-color: #f2f8fc;
-}
-
-.col-renovacao {
-  width: 10%;
-}
-
-.col-nascimento,
-.col-contato,
-.col-email,
-.col-nivel {
-  width: 10%;
-}
-
-.col-nome,
-.col-observacoes {
-  width: 30%;
 }
 
 .export-buttons {
@@ -59,7 +40,6 @@ tr:nth-child(even) {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s;
 }
 
 .export-buttons button:hover {

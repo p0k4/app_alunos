@@ -1,35 +1,22 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TabelaAlunos from './TabelaAlunos';
 
-function RegistosPage({ alunos, editarAluno, gravarAluno, onApagar, editIndex }) {
-  return (
-    <div className="app-container">
-      <h1>Registos de Alunos 📋</h1>
-      
-      <Link to="/">
-        <button
-          style={{
-            marginBottom: '20px',
-            padding: '10px',
-            backgroundColor: 'green',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px'
-          }}
-        >
-          ← Voltar
-        </button>
-      </Link>
+function RegistoPage({ alunos, editarAluno, gravarAluno, apagarAluno, editId }) {
+  const navigate = useNavigate();
 
+  return (
+    <div className="registo-page">
+      <h1>📋 Registos de Alunos</h1>
+      <button onClick={() => navigate('/')}>← Voltar</button>
       <TabelaAlunos
         alunos={alunos}
         onEditar={editarAluno}
         onGravar={gravarAluno}
-          onApagar={onApagar}
-        editIndex={editIndex}
+        onApagar={apagarAluno}
+        editId={editId}
       />
     </div>
   );
 }
 
-export default RegistosPage;
+export default RegistoPage;

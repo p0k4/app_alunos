@@ -1,31 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FormPage from './FormPage';
 import RegistoPage from './RegistoPage';
-import './App.css';
+import {
+  getAlunos,
+  addAluno,
+  updateAluno,
+  deleteAluno
+} from './api/alunosApi';
 
 function App() {
   const [alunos, setAlunos] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
 
-  const adicionarAluno = (aluno) => {
-    setAlunos([...alunos, aluno]);
+  // Carrega ao iniciar
+  useEffect(() => {
+    getAlunos()
+      .then(setAlunos)
+      .catch((error) => console.error('Erro ao carregar alunos:', error));
+  }, []);
+
+  // Adiciona aluno
+  const adicionarAluno = async (aluno) => {
+    try {
+      const novo = await addAluno(aluno);
+      setAlunos((prev) => [...prev, novo]);
+    } catch (error) {
+      console.error('Erro ao adicionar aluno:', error);
+    }
   };
 
-  const editarAluno = (index) => {
-    setEditIndex(index);
+  // Inicia edição
+  const editarAluno = (id) => {
+    setEditId(id);
   };
 
-  const gravarAluno = (index, alunoAtualizado) => {
-    const novosAlunos = [...alunos];
-    novosAlunos[index] = alunoAtualizado;
-    setAlunos(novosAlunos);
-    setEditIndex(null);
+  // Grava aluno editado
+  const gravarAluno = async (id, alunoAtualizado) => {
+    try {
+      const atualizado = await updateAluno(id, alunoAtualizado);
+      setAlunos((prev) =>
+        prev.map((a) => (a.id === id ? atualizado : a))
+      );
+      setEditId(null);
+    } catch (error) {
+      console.error('Erro ao gravar aluno:', error);
+    }
   };
 
-  const apagarAluno = (index) => {
-    setAlunos((prev) => prev.filter((_, i) => i !== index));
-    setEditIndex(null); // se estiver em edição, limpa
+  // Apaga aluno
+  const apagarAluno = async (id) => {
+    try {
+      await deleteAluno(id);
+      setAlunos((prev) => prev.filter((a) => a.id !== id));
+      setEditId(null);
+    } catch (error) {
+      console.error('Erro ao apagar aluno:', error);
+    }
   };
 
   return (
@@ -42,8 +73,8 @@ function App() {
               alunos={alunos}
               editarAluno={editarAluno}
               gravarAluno={gravarAluno}
-              onApagar={apagarAluno}
-              editIndex={editIndex}
+              apagarAluno={apagarAluno}
+              editId={editId}
             />
           }
         />

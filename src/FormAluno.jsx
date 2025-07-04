@@ -90,8 +90,13 @@ function FormAluno({ onAdicionar }) {
         value={formData.nivel}
         onChange={handleChange}
       >
-        <option value="" disabled>Insere o nível</option>
-        <option value="Adultos">Adultos</option>
+        <option value="" disabled>Seleciona o opção</option>
+        <option value="Natacao-Adultos">Natação Adultos</option>
+        <option value="Hidroginastica">Hidroginástica</option>
+        <option value="Hidrobike">Hidrobike</option>
+        <option value="Pilates">Pilates</option>
+        <option value="Treino Funcional">Treino Funional</option>
+        <option value="Cycling">Cycling</option>
         <option value="Bebes">Bebes</option>
         <option value="Nivel 1">Nivel 1</option>
         <option value="Nivel 2">Nivel 2</option>

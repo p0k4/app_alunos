@@ -1,99 +1,18 @@
-.tabela-alunos {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 5px #ccc;
-  margin-top: 20px;
-}
-
-th, td {
-  padding: 12px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  text-align: left;
-  white-space: normal;
-  word-break: break-word;
-}
-
-th {
-  background-color: #0b3d57;
-  color: white;
-  font-size: 16px;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f8fc;
-}
-
-.export-buttons {
-  margin-bottom: 20px;
-}
-
-.export-buttons button {
-  margin-right: 10px;
-  padding: 8px 16px;
-  background-color: #0b3d57;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.export-buttons button:hover {
-  background-color: #084256;
-}
-
-.tabela-alunos {
-  width: 95%;
-  margin: 30px auto;                 /* margem em toda a volta */
-  border-collapse: separate;         /* permite border-radius */
-  border-spacing: 0;                  /* evita espaços estranhos */
-  background-color: #fff;
-  border-radius: 12px;                /* cantos arredondados bonitos */
-  overflow: hidden;                   /* faz o radius cortar conteúdo */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-}
-
-.tabela-alunos th {
-  background-color: #0b3d57;
-  color: white;
-  padding: 12px 10px;
-  text-align: left;
-  font-size: 16px;
-}
-
-.tabela-alunos td {
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  font-size: 14px;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow-wrap: break-word;
-}
-
-.tabela-alunos tr:nth-child(even) {
-  background-color: #f2f8fc;
+body {
+  margin: 0;
+  background: linear-gradient(to bottom, #d0d0d0, #b0b0b0, #909090);
+  font-family: Arial, sans-serif;
 }
 
 .top-bar {
-  width: 95%;
-  max-width: 1400px;
-  margin: 20px auto;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
-}
-
-.voltar {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 20px;
+  justify-content: flex-start;
 }
 
 .export-buttons {
@@ -101,11 +20,114 @@ tr:nth-child(even) {
   gap: 10px;
 }
 
-.export-buttons button {
+.export-buttons button,
+.voltar-btn {
   background-color: #0b3d57;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.export-buttons button:hover,
+.voltar-btn:hover {
+  background-color: #084256;
+}
+
+.input-pesquisa {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 220px;
+  font-size: 14px;
+}
+
+.tabela-alunos {
+  width: 95%;
+  max-width: 1200px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /* REMOVED fixed layout for auto sizing */
+}
+
+.tabela-alunos th {
+  background-color: #0b3d57;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-size: 15px;
+  border: 1px solid #ddd;
+}
+
+.tabela-alunos td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+
+.tabela-alunos tr:nth-child(even) {
+  background-color: #f6f9fc;
+}
+
+.tabela-alunos td input,
+.tabela-alunos td textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.tabela-alunos button {
+  padding: 6px 10px;
+  margin: 2px;
+  background-color: #0b3d57;
+  color: white;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.tabela-alunos button:hover {
+  background-color: #084256;
+}
+
+/* Observações flexível, mais larga se houver espaço */
+.tabela-alunos th:nth-child(7),
+.tabela-alunos td:nth-child(7) {
+  min-width: 250px;
+  max-width: 600px;
+  white-space: normal;
+}
+
+/* Alargar Nome Completo */
+.tabela-alunos td:nth-child(2),
+.tabela-alunos th:nth-child(2) {
+  min-width: 220px;
+  max-width: 300px;
+}
+
+/* Default col width to keep table spread */
+.tabela-alunos th,
+.tabela-alunos td {
+  min-width: 120px;
+}
+.tabela-alunos td.acoes,
+.tabela-alunos th.acoes {
+  width: 140px;
+  text-align: center;
+  white-space: nowrap;
 }

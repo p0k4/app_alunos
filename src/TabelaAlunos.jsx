@@ -3,13 +3,12 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import './TabelaAlunos.css';
 
-// Formata data ISO ➜ yyyy-mm-dd
 function formatarData(dataISO) {
   if (!dataISO) return '';
-  return String(dataISO).slice(0, 10);
+  const [year, month, day] = dataISO.slice(0, 10).split('-');
+  return `${day}-${month}-${year}`;
 }
 
-// Normaliza o draft antes de gravar
 function normalizarAlunoParaEnvio(aluno) {
   return {
     ...aluno,
@@ -20,8 +19,8 @@ function normalizarAlunoParaEnvio(aluno) {
 
 function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
   const [draftAluno, setDraftAluno] = useState(null);
+  const [filtro, setFiltro] = useState('');
 
-  // Iniciar edição com dados formatados
   const handleEditClick = (aluno) => {
     setDraftAluno({
       ...aluno,
@@ -31,7 +30,6 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
     onEditar(aluno.id);
   };
 
-  // Atualizar inputs
   const handleInputChange = (campo, valor) => {
     setDraftAluno((prev) => ({
       ...prev,
@@ -39,7 +37,6 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
     }));
   };
 
-  // Gravar alterações
   const handleGravarClick = () => {
     if (!draftAluno) return;
     const alunoLimpo = normalizarAlunoParaEnvio(draftAluno);
@@ -47,7 +44,19 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
     setDraftAluno(null);
   };
 
-  // Sem alunos
+  const alunosFiltrados = alunos.filter((aluno) => {
+    const termo = filtro.toLowerCase();
+    return (
+      aluno.nomeCompleto?.toLowerCase().includes(termo) ||
+      aluno.email?.toLowerCase().includes(termo) ||
+      aluno.nivel?.toLowerCase().includes(termo) ||
+      aluno.contato?.toLowerCase().includes(termo) ||
+      aluno.observacoes?.toLowerCase().includes(termo) ||
+      formatarData(aluno.dataRenovacao).includes(termo) ||
+      formatarData(aluno.dataNascimento).includes(termo)
+    );
+  });
+
   if (!alunos || alunos.length === 0) {
     return <p className="aviso">Sem alunos registados ainda.</p>;
   }
@@ -55,10 +64,18 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
   return (
     <div>
       <div className="top-bar">
-      <div className="export-buttons">
-        <button onClick={() => exportPDF(alunos)}>📄 Exportar PDF</button>
-        <button onClick={() => exportCSV(alunos)}>📑 Exportar CSV</button>
+        <button className="voltar-btn" onClick={() => window.history.back()}>← Voltar</button>
+        <div className="export-buttons">
+          <button onClick={() => exportPDF(alunos)}>📄 Exportar PDF</button>
+          <button onClick={() => exportCSV(alunos)}>📑 Exportar CSV</button>
         </div>
+        <input
+          type="text"
+          placeholder="🔍 Pesquisar aluno..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className="input-pesquisa"
+        />
       </div>
 
       <table className="tabela-alunos">
@@ -70,62 +87,25 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
             <th>Contato</th>
             <th>Email</th>
             <th>Nível</th>
-            <th>Observações</th>
+            <th className="col-observacoes">Observações</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {alunos.map((aluno) => {
+          {alunosFiltrados.map((aluno) => {
             const emEdicao = editId === aluno.id && draftAluno && draftAluno.id === aluno.id;
 
             return (
               <tr key={aluno.id}>
                 {emEdicao ? (
                   <>
-                    <td>
-                      <input
-                        type="date"
-                        value={draftAluno.dataRenovacao || ''}
-                        onChange={(e) => handleInputChange('dataRenovacao', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={draftAluno.nomeCompleto || ''}
-                        onChange={(e) => handleInputChange('nomeCompleto', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="date"
-                        value={draftAluno.dataNascimento || ''}
-                        onChange={(e) => handleInputChange('dataNascimento', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={draftAluno.contato || ''}
-                        onChange={(e) => handleInputChange('contato', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={draftAluno.email || ''}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={draftAluno.nivel || ''}
-                        onChange={(e) => handleInputChange('nivel', e.target.value)}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        value={draftAluno.observacoes || ''}
-                        onChange={(e) => handleInputChange('observacoes', e.target.value)}
-                      />
-                    </td>
+                    <td><input type="date" value={draftAluno.dataRenovacao || ''} onChange={(e) => handleInputChange('dataRenovacao', e.target.value)} /></td>
+                    <td><input value={draftAluno.nomeCompleto || ''} onChange={(e) => handleInputChange('nomeCompleto', e.target.value)} /></td>
+                    <td><input type="date" value={draftAluno.dataNascimento || ''} onChange={(e) => handleInputChange('dataNascimento', e.target.value)} /></td>
+                    <td><input value={draftAluno.contato || ''} onChange={(e) => handleInputChange('contato', e.target.value)} /></td>
+                    <td><input value={draftAluno.email || ''} onChange={(e) => handleInputChange('email', e.target.value)} /></td>
+                    <td><input value={draftAluno.nivel || ''} onChange={(e) => handleInputChange('nivel', e.target.value)} /></td>
+                    <td><textarea value={draftAluno.observacoes || ''} onChange={(e) => handleInputChange('observacoes', e.target.value)} /></td>
                     <td>
                       <button onClick={handleGravarClick}>💾 Gravar</button>
                     </td>
@@ -138,11 +118,11 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
                     <td>{aluno.contato}</td>
                     <td>{aluno.email}</td>
                     <td>{aluno.nivel}</td>
-                    <td>{aluno.observacoes}</td>
-                    <td>
-                      <button onClick={() => handleEditClick(aluno)}>✏️ Editar</button>
-                      <button onClick={() => onApagar(aluno.id)}>🗑️ Apagar</button>
-                    </td>
+                    <td className="col-observacoes">{aluno.observacoes}</td>
+                    <th className="acoes">
+  <button onClick={() => handleEditClick(aluno)}>✏️ Editar</button>
+  <button onClick={() => onApagar(aluno.id)}>🗑️ Apagar</button>
+</th>
                   </>
                 )}
               </tr>
@@ -154,7 +134,6 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
   );
 }
 
-// EXPORT PDF
 function exportPDF(alunos) {
   const doc = new jsPDF({ orientation: 'landscape' });
   doc.text('Registos de Alunos', 14, 16);
@@ -193,7 +172,6 @@ function exportPDF(alunos) {
   doc.save('Registos_Alunos.pdf');
 }
 
-// EXPORT CSV
 function exportCSV(alunos) {
   const header = [
     'Data de Renovação',

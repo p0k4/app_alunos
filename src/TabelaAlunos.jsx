@@ -116,7 +116,7 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
                     <td><input value={draftAluno.nivel || ''} onChange={(e) => handleInputChange('nivel', e.target.value)} /></td>
                     <td><textarea value={draftAluno.observacoes || ''} onChange={(e) => handleInputChange('observacoes', e.target.value)} /></td>
                     <td>
-                      <button onClick={handleGravarClick}>
+                      <button className="btn-gravar" onClick={handleGravarClick}>
                         <FontAwesomeIcon icon={faCheck} /> Gravar
                       </button>
                     </td>
@@ -131,17 +131,20 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
                     <td>{aluno.nivel}</td>
                     <td className="col-observacoes">{aluno.observacoes}</td>
                     <td className="acoes">
-                      <button onClick={() => handleEditClick(aluno)}>
-                        <FontAwesomeIcon icon={faPenToSquare} /> Editar
-                      </button>
-                      <button onClick={() => {
-                        if (window.confirm(`⚠️ Atenção!\nDeseja mesmo remover o aluno "${aluno.nomeCompleto}"?`)) {
-                          onApagar(aluno.id);
-                        }
-                      }}>
-                        <FontAwesomeIcon icon={faTrash} /> Apagar
-                      </button>
+                      <div className="acoes-botoes">
+                        <button className="btn-editar" onClick={() => handleEditClick(aluno)}>
+                          <FontAwesomeIcon icon={faPenToSquare} /> Editar
+                        </button>
+                        <button className="btn-apagar" onClick={() => {
+                          if (window.confirm(`⚠️ Atenção!\nDeseja mesmo remover o aluno "${aluno.nomeCompleto}"?`)) {
+                            onApagar(aluno.id);
+                          }
+                        }}>
+                          <FontAwesomeIcon icon={faTrash} /> Apagar
+                        </button>
+                      </div>
                     </td>
+
                   </>
                 )}
               </tr>
@@ -152,7 +155,6 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
     </div>
   );
 }
-
 function exportPDF(alunos) {
   const doc = new jsPDF({ orientation: 'landscape' });
   doc.text('Registos de Alunos', 14, 16);
@@ -167,26 +169,33 @@ function exportPDF(alunos) {
     'Observações',
   ];
 
+  const wrapText = (text, limit = 40) => {
+    if (!text) return '';
+    return text.replace(new RegExp(`(.{1,${limit}})(\\s|$)`, 'g'), '$1\n').trim();
+  };
+
   const tableRows = alunos.map((aluno) => [
     formatarData(aluno.dataRenovacao),
-    aluno.nomeCompleto,
+    wrapText(aluno.nomeCompleto),
     formatarData(aluno.dataNascimento),
     aluno.contato,
-    aluno.email,
+    wrapText(aluno.email),
     aluno.nivel,
-    aluno.observacoes,
+    wrapText(aluno.observacoes)
   ]);
 
-  autoTable(doc, {
-    head: [tableColumn],
-    body: tableRows,
-    startY: 20,
-    theme: 'grid',
-    margin: { left: 20, right: 20 },
-    tableWidth: 'wrap',
-    styles: { fontSize: 10 },
-    headStyles: { fillColor: [11, 61, 87] },
-  });
+autoTable(doc, {
+  head: [tableColumn],
+  body: tableRows,
+  startY: 20,
+  theme: 'grid',
+  margin: { left: 20, right: 20 },
+  styles: { fontSize: 10 },
+  headStyles: { fillColor: [11, 61, 87] },
+  columnStyles: {
+    6: { cellWidth: 100, overflow: 'linebreak' } // Observações maior e quebra automático
+  }
+});
 
   doc.save('Registos_Alunos.pdf');
 }

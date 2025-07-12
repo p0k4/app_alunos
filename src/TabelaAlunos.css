@@ -22,8 +22,8 @@ body {
 
 .export-buttons button,
 .voltar-btn {
-  background-color: #0b3d57;
-  color: white;
+  background-color: #e0a800;
+  color: black;
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
@@ -34,11 +34,11 @@ body {
 
 .export-buttons button:hover,
 .voltar-btn:hover {
-  background-color: #084256;
+  background-color: #e0a800;
 }
 
 .input-pesquisa {
-  padding: 10px 14px;
+  padding: 5px 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
   width: 220px;
@@ -53,6 +53,7 @@ body {
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
+  text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   /* REMOVED fixed layout for auto sizing */
 }
@@ -61,8 +62,8 @@ body {
   background-color: #0b3d57;
   color: white;
   padding: 12px;
-  text-align: left;
-  font-size: 15px;
+  text-align: center;
+  font-size: 14px;
   border: 1px solid #ddd;
 }
 
@@ -89,7 +90,7 @@ body {
   resize: vertical;
 }
 
-.tabela-alunos button {
+.tabela-alunos button:not(.btn-gravar) {
   padding: 6px 10px;
   margin: 2px;
   background-color: #0b3d57;
@@ -101,8 +102,21 @@ body {
   transition: background-color 0.2s;
 }
 
-.tabela-alunos button:hover {
-  background-color: #084256;
+/* Botão Gravar em verde */
+.btn-gravar {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  margin: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-gravar:hover {
+  background-color: #218838;
 }
 
 /* Observações flexível, mais larga se houver espaço */
@@ -116,8 +130,13 @@ body {
 /* Alargar Nome Completo */
 .tabela-alunos td:nth-child(2),
 .tabela-alunos th:nth-child(2) {
-  min-width: 220px;
+  min-width: 450px;
   max-width: 300px;
+}
+.tabela-alunos td:nth-child(5),
+.tabela-alunos th:nth-child(5) {
+  min-width: 280px;
+  max-width: 320px;
 }
 
 /* Default col width to keep table spread */
@@ -154,4 +173,25 @@ body {
   flex: 1;
   font-size: 14px;
   background: transparent;
+}
+.acoes-botoes button.btn-editar {
+  background-color: #ffc107;
+  border: none;
+  color: black;
+  transition: background-color 0.2s;
+}
+
+.acoes-botoes button.btn-editar:hover {
+  background-color: #e0a800;
+}
+
+.acoes-botoes button.btn-apagar {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.acoes-botoes button.btn-apagar:hover {
+  background-color: #c82333;
 }

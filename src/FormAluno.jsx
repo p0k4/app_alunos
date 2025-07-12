@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './FormAluno.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faBars, faIdCard} from '@fortawesome/free-solid-svg-icons';
 
 function FormAluno({ onAdicionar }) {
   const [formData, setFormData] = useState({
@@ -27,7 +27,9 @@ function FormAluno({ onAdicionar }) {
       alert('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
+    
     onAdicionar(formData);
+    alert(`✅ Aluno "${nomeCompleto}" adicionado com sucesso!`);
     setFormData({
       dataRenovacao: '',
       nomeCompleto: '',
@@ -41,7 +43,7 @@ function FormAluno({ onAdicionar }) {
 
   return (
     <form className="form-aluno" onSubmit={handleSubmit}>
-      <h2>Registar Aluno</h2>
+      <h2><FontAwesomeIcon icon={faIdCard} /> Registar Aluno</h2>
 
       <label>Data de Renovação</label>
       <input

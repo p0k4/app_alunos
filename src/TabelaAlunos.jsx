@@ -2,6 +2,8 @@ import { useState } from 'react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import './TabelaAlunos.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf, faFileCsv, faCircleLeft, faPenToSquare, faTrash, faCheck, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function formatarData(dataISO) {
   if (!dataISO) return '';
@@ -64,18 +66,25 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
   return (
     <div>
       <div className="top-bar">
-        <button className="voltar-btn" onClick={() => window.history.back()}>← Voltar</button>
+        <button className="voltar-btn" onClick={() => window.history.back()}>
+          <FontAwesomeIcon icon={faCircleLeft} /> Voltar</button>
         <div className="export-buttons">
-          <button onClick={() => exportPDF(alunos)}>📄 Exportar PDF</button>
-          <button onClick={() => exportCSV(alunos)}>📑 Exportar CSV</button>
+          <button onClick={() => exportPDF(alunos)}>
+            <FontAwesomeIcon icon={faFilePdf} /> Exportar PDF
+          </button>
+          <button onClick={() => exportCSV(alunos)}>
+            <FontAwesomeIcon icon={faFileCsv} /> Exportar CSV</button>
         </div>
-        <input
-          type="text"
-          placeholder="🔍 Pesquisar aluno..."
-          value={filtro}
-          onChange={(e) => setFiltro(e.target.value)}
-          className="input-pesquisa"
-        />
+        <div className="input-container">
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <input
+            type="text"
+            placeholder="Pesquisar aluno..."
+            value={filtro}
+            onChange={(e) => setFiltro(e.target.value)}
+            className="input-pesquisa"
+          />
+        </div>
       </div>
 
       <table className="tabela-alunos">
@@ -107,7 +116,9 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
                     <td><input value={draftAluno.nivel || ''} onChange={(e) => handleInputChange('nivel', e.target.value)} /></td>
                     <td><textarea value={draftAluno.observacoes || ''} onChange={(e) => handleInputChange('observacoes', e.target.value)} /></td>
                     <td>
-                      <button onClick={handleGravarClick}>💾 Gravar</button>
+                      <button onClick={handleGravarClick}>
+                        <FontAwesomeIcon icon={faCheck} /> Gravar
+                      </button>
                     </td>
                   </>
                 ) : (
@@ -119,10 +130,18 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
                     <td>{aluno.email}</td>
                     <td>{aluno.nivel}</td>
                     <td className="col-observacoes">{aluno.observacoes}</td>
-                    <th className="acoes">
-  <button onClick={() => handleEditClick(aluno)}>✏️ Editar</button>
-  <button onClick={() => onApagar(aluno.id)}>🗑️ Apagar</button>
-</th>
+                    <td className="acoes">
+                      <button onClick={() => handleEditClick(aluno)}>
+                        <FontAwesomeIcon icon={faPenToSquare} /> Editar
+                      </button>
+                      <button onClick={() => {
+                        if (window.confirm(`⚠️ Atenção!\nDeseja mesmo remover o aluno "${aluno.nomeCompleto}"?`)) {
+                          onApagar(aluno.id);
+                        }
+                      }}>
+                        <FontAwesomeIcon icon={faTrash} /> Apagar
+                      </button>
+                    </td>
                   </>
                 )}
               </tr>
@@ -177,16 +196,15 @@ function exportCSV(alunos) {
     'Data de Renovação',
     'Nome Completo',
     'Data de Nascimento',
+    'Nível',
     'Contato',
     'Email',
-    'Nível',
     'Observações',
   ];
 
-  const escapeCSV = (text, isNumber = false) => {
+  const escapeCSV = (text) => {
     if (text == null) return '';
     let str = String(text).replace(/"/g, '""');
-    if (isNumber) str = `="${str}"`;
     return `"${str}"`;
   };
 
@@ -195,9 +213,9 @@ function exportCSV(alunos) {
       escapeCSV(formatarData(aluno.dataRenovacao)),
       escapeCSV(aluno.nomeCompleto),
       escapeCSV(formatarData(aluno.dataNascimento)),
-      escapeCSV(aluno.contato, true),
-      escapeCSV(aluno.email),
       escapeCSV(aluno.nivel),
+      escapeCSV(aluno.contato),
+      escapeCSV(aluno.email),
       escapeCSV(aluno.observacoes),
     ].join(';')
   );

@@ -43,6 +43,7 @@ function App() {
         prev.map((a) => (a.id === id ? atualizado : a))
       );
       setEditId(null);
+      alert('✅ Alteração efetuada com sucesso!');
     } catch (error) {
       console.error('Erro ao gravar aluno:', error);
     }

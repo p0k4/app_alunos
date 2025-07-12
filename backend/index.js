@@ -19,8 +19,8 @@ const pool = new Pool({
 });
 
 pool.connect()
-  .then(() => console.log('✅ Conectado ao PostgreSQL!'))
-  .catch(err => console.error('❌ Erro ao conectar ao PostgreSQL', err));
+  .then(() => console.log(' BD-ONLINE ✅'))
+  .catch(err => console.error('❌ Erro ao conectar com a base de dados', err));
 
 // GET
 app.get('/alunos', async (req, res) => {

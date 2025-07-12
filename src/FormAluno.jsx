@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './FormAluno.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faBars } from '@fortawesome/free-solid-svg-icons';
 
 function FormAluno({ onAdicionar }) {
   const [formData, setFormData] = useState({
@@ -115,9 +117,14 @@ function FormAluno({ onAdicionar }) {
         rows={4}
       />
 
-      <button type="submit">Adicionar Aluno</button>
-      <div className="link-registos">
-        <Link to="/registos">📑 Ver Registos</Link>
+      <div className="botoes">
+
+        <button type="submit">
+          <FontAwesomeIcon icon={faCheck} /> Adicionar Aluno
+        </button>
+        <p></p>
+        <Link to="/registos">
+                <FontAwesomeIcon icon={faBars} /> Ver Registos</Link>
       </div>
     </form>
   );

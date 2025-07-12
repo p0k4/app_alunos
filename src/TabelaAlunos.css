@@ -131,3 +131,27 @@ body {
   text-align: center;
   white-space: nowrap;
 }
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: white;
+  width: 220px;
+  gap: 8px;
+}
+
+.input-container svg {
+  color: #666;
+  font-size: 16px;
+}
+
+.input-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background: transparent;
+}

@@ -1,5 +1,5 @@
 .form-aluno {
-  max-width: 420px;
+  max-width: 1000px;
   margin: 30px auto;
   padding: 24px;
   background-color: #ffffff;
@@ -36,8 +36,9 @@
 }
 
 .form-aluno button {
-  margin-top: 20px;
-  padding: 12px;
+ margin-top: 10px;
+  padding: 20px;
+  max-width: 200px;
   background-color: #0b3d57;
   color: white;
   border: none;
@@ -45,20 +46,24 @@
   cursor: pointer;
   font-size: 15px;
   transition: background-color 0.2s;
+  min-width: 800px;
+  font-size: 20px;
 }
 
 .form-aluno button:hover {
   background-color: #084256;
 }
 
-.form-aluno .link-registos {
+.form-aluno .botoes {
   text-align: center;
   margin-top: 10px;
+  
 }
 
-.form-aluno .link-registos a {
+.form-aluno .botoes a {
+  min-width: 780px;
   display: inline-block;
-  padding: 12px;
+  padding: 10px;
   background-color: #0b3d57;
   color: white;
   border-radius: 6px;
@@ -66,6 +71,6 @@
   transition: background-color 0.2s;
 }
 
-.form-aluno .link-registos a:hover {
+.form-aluno .botoes a:hover {
   background-color: #084256;
 }

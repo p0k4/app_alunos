@@ -4,6 +4,8 @@ import autoTable from 'jspdf-autotable';
 import './TabelaAlunos.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faFileCsv, faCircleLeft, faPenToSquare, faTrash, faCheck, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 
 function formatarData(dataISO) {
   if (!dataISO) return '';
@@ -11,40 +13,33 @@ function formatarData(dataISO) {
   return `${day}-${month}-${year}`;
 }
 
-function normalizarAlunoParaEnvio(aluno) {
-  return {
-    ...aluno,
-    dataRenovacao: formatarData(aluno.dataRenovacao),
-    dataNascimento: formatarData(aluno.dataNascimento),
-  };
-}
 
 function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
   const [draftAluno, setDraftAluno] = useState(null);
   const [filtro, setFiltro] = useState('');
+  const navigate = useNavigate();
 
-  const handleEditClick = (aluno) => {
-    setDraftAluno({
-      ...aluno,
-      dataRenovacao: formatarData(aluno.dataRenovacao),
-      dataNascimento: formatarData(aluno.dataNascimento)
-    });
-    onEditar(aluno.id);
-  };
+  // Handler to start editing a student
+  function handleEditClick(aluno) {
+    setDraftAluno({ ...aluno });
+    if (onEditar) onEditar(aluno.id);
+  }
 
-  const handleInputChange = (campo, valor) => {
+  // Handler for input changes in edit mode
+  function handleInputChange(field, value) {
     setDraftAluno((prev) => ({
       ...prev,
-      [campo]: valor
+      [field]: value,
     }));
-  };
+  }
 
-  const handleGravarClick = () => {
-    if (!draftAluno) return;
-    const alunoLimpo = normalizarAlunoParaEnvio(draftAluno);
-    onGravar(alunoLimpo.id, alunoLimpo);
-    setDraftAluno(null);
-  };
+  // Handler to save the edited student
+  function handleGravarClick() {
+    if (onGravar && draftAluno) {
+      onGravar(draftAluno);
+      setDraftAluno(null);
+    }
+  }
 
   const alunosFiltrados = alunos.filter((aluno) => {
     const termo = filtro.toLowerCase();
@@ -59,9 +54,18 @@ function TabelaAlunos({ alunos, onEditar, onGravar, onApagar, editId }) {
     );
   });
 
-  if (!alunos || alunos.length === 0) {
-    return <p className="aviso">Sem alunos registados ainda.</p>;
-  }
+if (!alunos || alunos.length === 0) {
+  return (
+    <div className="aviso-container">
+      <p className="aviso-texto">⚠️ Sem alunos registados ainda.</p>
+      <button className="btn-voltar" onClick={() => navigate('/')}>
+        ← Voltar
+      </button>
+    </div>
+  );
+}
+
+
 
   return (
     <div>

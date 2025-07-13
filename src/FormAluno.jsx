@@ -15,11 +15,21 @@ function FormAluno({ onAdicionar }) {
     nivel: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
 
+  if (name === 'contato') {
+    // Remove tudo que não é número
+    let onlyNumbers = value.replace(/\D/g, '');
+    // Limita a 15 dígitos
+    if (onlyNumbers.length > 15) {
+      onlyNumbers = onlyNumbers.slice(0, 15);
+    }
+    setFormData({ ...formData, [name]: onlyNumbers });
+  } else {
+    setFormData({ ...formData, [name]: value });
+  }
+};
   const handleSubmit = (e) => {
     e.preventDefault();
     const { dataRenovacao, nomeCompleto, dataNascimento, contato, email, nivel } = formData;
@@ -45,7 +55,7 @@ function FormAluno({ onAdicionar }) {
     <form className="form-aluno" onSubmit={handleSubmit}>
       <h2><FontAwesomeIcon icon={faIdCard} /> Registar Aluno</h2>
 
-      <label>Data de Renovação</label>
+      <label>Data de Renovação:</label>
       <input
         type="date"
         name="dataRenovacao"
@@ -53,7 +63,7 @@ function FormAluno({ onAdicionar }) {
         onChange={handleChange}
       />
 
-      <label>Nome Completo</label>
+      <label>Nome Completo:</label>
       <input
         type="text"
         name="nomeCompleto"
@@ -62,7 +72,7 @@ function FormAluno({ onAdicionar }) {
         onChange={handleChange}
       />
 
-      <label>Data de Nascimento</label>
+      <label>Data de Nascimento:</label>
       <input
         type="date"
         name="dataNascimento"
@@ -70,16 +80,16 @@ function FormAluno({ onAdicionar }) {
         onChange={handleChange}
       />
 
-      <label>Contato</label>
+      <label>Contato:</label>
       <input
-        type="text"
+        type="number"
         name="contato"
-        placeholder="Contato"
+        placeholder="000 000 000 "
         value={formData.contato}
         onChange={handleChange}
       />
 
-      <label>Email</label>
+      <label>Email:</label>
       <input
         type="email"
         name="email"
@@ -88,7 +98,7 @@ function FormAluno({ onAdicionar }) {
         onChange={handleChange}
       />
 
-      <label>Nível</label>
+      <label>Nível:</label>
       <select
         name="nivel"
         value={formData.nivel}
@@ -110,10 +120,10 @@ function FormAluno({ onAdicionar }) {
         <option value="Nivel 6">Nivel 6</option>
       </select>
 
-      <label>Observações</label>
+      <label>Observações:</label>
       <textarea
         name="observacoes"
-        placeholder="Observações"
+        placeholder="mencione alguma observação, caso exista"
         value={formData.observacoes}
         onChange={handleChange}
         rows={4}

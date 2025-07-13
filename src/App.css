@@ -2,7 +2,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #e8e8e8, #b8b8b8, #909090);
+
 }
 
 
@@ -11,9 +11,4 @@ h1 {
   color: #0b3d57;
 }
 
-.registo-topo {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-}
 

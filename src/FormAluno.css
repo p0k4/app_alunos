@@ -2,9 +2,9 @@
   max-width: 1000px;
   margin: 30px auto;
   padding: 24px;
-  background-color: #ffffff;
+  background-color: #e2edf4;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,7 @@
   margin-bottom: 4px;
   font-weight: 600;
   color: #0b3d57;
+  
 }
 
 .form-aluno input,
@@ -33,6 +34,7 @@
   border-radius: 6px;
   font-size: 14px;
   box-sizing: border-box;
+  border: 1px solid #0d4a63;
 }
 
 .form-aluno button {

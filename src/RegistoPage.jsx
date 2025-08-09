@@ -1,6 +1,7 @@
 
 import TabelaAlunos from './TabelaAlunos';
 import './App.css';
+import './TabelaAlunos.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxArchive } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +9,7 @@ import { faBoxArchive } from '@fortawesome/free-solid-svg-icons';
 function RegistoPage({ alunos, editarAluno, gravarAluno, apagarAluno, editId }) {
 
   return (
-    <div className="registo-page">
+    <div className="registos-container">
       <h1><FontAwesomeIcon icon={faBoxArchive} /> Registos de Alunos</h1>
 
 

@@ -1,78 +1,134 @@
+/* Container */
 .form-aluno {
-  max-width: 1000px;
-  margin: 30px auto;
+  max-width: 920px;
+  margin: 32px auto;
   padding: 24px;
-  background-color: #e2edf4;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
   box-sizing: border-box;
+}
+
+.form-aluno h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #0f172a;
+  margin-bottom: 20px;
+  font-size: 1.75rem;
+}
+
+/* Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-field {
   display: flex;
   flex-direction: column;
 }
 
-.form-aluno h2 {
-  text-align: center;
-  color: #0b3d57;
-  margin-bottom: 20px;
-  font-size: 1.5em;
+.form-field.full {
+  grid-column: 1 / -1;
 }
 
 .form-aluno label {
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-weight: 600;
-  color: #0b3d57;
-  
+  color: #334155;
 }
 
 .form-aluno input,
 .form-aluno select,
 .form-aluno textarea {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
   font-size: 14px;
   box-sizing: border-box;
-  border: 1px solid #0d4a63;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.form-aluno button {
- margin-top: 10px;
-  padding: 20px;
-  max-width: 200px;
-  background-color: #0b3d57;
-  color: white;
-  border: none;
-  border-radius: 6px;
+.form-aluno input:focus,
+.form-aluno select:focus,
+.form-aluno textarea:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+  background-color: #ffffff;
+}
+
+.form-aluno textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Buttons */
+.botoes {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
   cursor: pointer;
+  font-weight: 600;
   font-size: 15px;
-  transition: background-color 0.2s;
-  min-width: 800px;
-  font-size: 20px;
-}
-
-.form-aluno button:hover {
-  background-color: #084256;
-}
-
-.form-aluno .botoes {
-  text-align: center;
-  margin-top: 10px;
-  
-}
-
-.form-aluno .botoes a {
-  min-width: 780px;
-  display: inline-block;
-  padding: 10px;
-  background-color: #0b3d57;
-  color: white;
-  border-radius: 6px;
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: transform 0.06s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-aluno .botoes a:hover {
-  background-color: #084256;
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: #0ea5e9;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #0284c7;
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #e2e8f0;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.25);
 }

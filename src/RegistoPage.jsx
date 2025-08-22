@@ -11,10 +11,7 @@ function RegistoPage({ alunos, editarAluno, gravarAluno, apagarAluno, editId }) 
   return (
     <div className="registos-container">
       <h1><FontAwesomeIcon icon={faBoxArchive} /> Registos de Alunos</h1>
-
-
-
-
+      
       <TabelaAlunos
         alunos={alunos}
         onEditar={editarAluno}

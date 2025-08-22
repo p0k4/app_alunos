@@ -121,5 +121,5 @@ app.delete('/alunos/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor a correr em http://localhost:${port}`);
+  console.log(`SERVIDOR ONLINE ✅ http://localhost:${port}`);
 });

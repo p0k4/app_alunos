@@ -1,28 +1,39 @@
 import express from 'express';
 import cors from 'cors';
 import pg from 'pg';
+import dotenv from 'dotenv';
+
+// Carrega variáveis do .env
+dotenv.config();
 
 const { Pool } = pg;
-
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 4000; // usa 4000 como porta padrão
 
+// Verifica se a DATABASE_URL está definida
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL não definida no .env');
+  process.exit(1);
+}
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Configuração da base de dados
 const pool = new Pool({
-  user: 'martins',
-  host: 'localhost',
-  database: 'rnv_db',
-  password: 'bdrn.admin',
-  port: 5432
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
+// Testa conexão
 pool.connect()
-  .then(() => console.log(' BD-ONLINE ✅'))
+  .then(() => console.log('🟢 BD-ONLINE ✅'))
   .catch(err => console.error('❌ Erro ao conectar com a base de dados', err));
 
-// GET
+// === ROTAS ===
+
+// GET alunos
 app.get('/alunos', async (req, res) => {
   try {
     const resultado = await pool.query('SELECT * FROM alunos ORDER BY id ASC');
@@ -33,7 +44,7 @@ app.get('/alunos', async (req, res) => {
   }
 });
 
-// POST
+// POST novo aluno
 app.post('/alunos', async (req, res) => {
   const {
     data_renovacao,
@@ -60,7 +71,7 @@ app.post('/alunos', async (req, res) => {
   }
 });
 
-// PUT
+// PUT atualizar aluno
 app.put('/alunos/:id', async (req, res) => {
   const { id } = req.params;
   const {
@@ -99,7 +110,7 @@ app.put('/alunos/:id', async (req, res) => {
   }
 });
 
-// DELETE
+// DELETE aluno
 app.delete('/alunos/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -120,6 +131,7 @@ app.delete('/alunos/:id', async (req, res) => {
   }
 });
 
+// Inicia servidor
 app.listen(port, () => {
   console.log(`🚀 Servidor a correr em http://localhost:${port}`);
 });
